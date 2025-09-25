@@ -1,0 +1,1 @@
+GerenciadorEfeitos.java
