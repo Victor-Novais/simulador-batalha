@@ -1,8 +1,9 @@
 
+
 public class CobraMamba extends Criatura {
 
 	public CobraMamba() {
-		super("Cobra Mamba Negra", 100, 84, 70, 4, "Terra");
+		super("Cobra Mamba Negra", 100, 84, 70, 4, TipoElemental.TERRA);
 	}
 
 	@Override

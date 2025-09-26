@@ -1,8 +1,9 @@
 
+
 public class Corvo extends Criatura {
 
     public Corvo( ) {
-		super("Corvo", 100, 65, 30, 4, "Trevas");
+		super("Corvo", 100, 65, 30, 4, TipoElemental.TREVAS);
 	}
 
 	@Override

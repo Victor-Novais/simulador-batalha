@@ -2,7 +2,7 @@
 public class MacacoUacari extends Criatura {
 
 	public MacacoUacari() {
-		super("Macaco-Uacari", 100, 60, 70, 3, "Fogo");
+		super("Macaco-Uacari", 100, 60, 70, 3, TipoElemental.FOGO);
 	}
 
 	@Override

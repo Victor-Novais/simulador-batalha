@@ -1,7 +1,9 @@
+
+
 public class Cisne extends Criatura {
 
 	public Cisne() {
-		super("Cisne", 100, 30, 20, 2, "Luz");
+		super("Cisne", 100, 30, 20, 2, TipoElemental.LUZ);
 	}
 
     @Override

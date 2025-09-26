@@ -2,7 +2,7 @@
 public class Golfinho extends Criatura {
 
 	public Golfinho() {
-		super("Golfinho", 100, 60, 30, 4, "Água");
+		super("Golfinho", 100, 60, 30, 4, TipoElemental.AGUA);
 	}
 
 	@Override

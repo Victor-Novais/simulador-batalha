@@ -1,7 +1,7 @@
 public class Coruja extends Criatura {
 
 	public Coruja() {
-		super("Coruja das Neves", 100, 85, 20, 4, "Luz");
+		super("Coruja das Neves", 100, 85, 20, 4, TipoElemental.LUZ);
 	}
 
 	@Override
