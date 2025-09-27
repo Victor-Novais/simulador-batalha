@@ -1,59 +1,83 @@
 package main.service;
 
+
 import main.model.Criatura;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Collectors;
+
 
 public class BatalhaService {
 
-    private CalculadoraElemental calculadora;
-    private GerenciadorEfeitos gerenciadorEfeitos;
+
     private Scanner scanner;
 
+
     public BatalhaService() {
-        this.calculadora = new CalculadoraElemental();
-        this.gerenciadorEfeitos = new GerenciadorEfeitos();
         this.scanner = new Scanner(System.in);
     }
 
-    public void batalhar(List<Criatura> time1, List<Criatura> time2) {
+
+    public void batalhar(List<Criatura> time1, List<Criatura> time2, String nomeJogador1, String nomeJogador2) {
         System.out.println("=== Iniciando Batalha ===");
+
 
         int turno = 1;
         while (timeVivo(time1) && timeVivo(time2)) {
             System.out.println("\n===== TURNO " + turno + " =====");
 
-            int maxAcoes = Math.max(time1.size(), time2.size());
-
-            for (int i = 0; i < maxAcoes; i++) {
-
-                if (i < time1.size() && time1.get(i).estaViva()) {
-                    executarAcao("Jogador 1", time1.get(i), time1, time2);
-                    if (!timeVivo(time2)) break;
-                }
 
 
-                if (i < time2.size() && time2.get(i).estaViva()) {
-                    executarAcao("Jogador 2", time2.get(i), time2, time1);
-                    if (!timeVivo(time1)) break;
-                }
+
+            List<Criatura> ordem = new ArrayList<>();
+            ordem.addAll(time1.stream().filter(Criatura::estaViva).collect(Collectors.toList()));
+            ordem.addAll(time2.stream().filter(Criatura::estaViva).collect(Collectors.toList()));
+
+
+
+
+            ordem.sort((a, b) -> Integer.compare(b.getVelocidade(), a.getVelocidade()));
+
+
+
+
+            for (Criatura atacante : ordem) {
+                if (!atacante.estaViva()) continue;
+
+
+                List<Criatura> meuTime = time1.contains(atacante) ? time1 : time2;
+                List<Criatura> inimigos = (meuTime == time1) ? time2 : time1;
+                String jogador = (meuTime == time1) ? nomeJogador1 : nomeJogador2;
+
+
+
+
+                executarAcao(jogador, atacante, meuTime, inimigos);
+
+
+                if (!timeVivo(time1) || !timeVivo(time2)) break;
             }
+
 
             turno++;
         }
 
+
         if (timeVivo(time1)) {
-            System.out.println("\nJogador 1 venceu a batalha!");
+            System.out.println("\n" + nomeJogador1 + " venceu a batalha!");
         } else {
-            System.out.println("\nJogador 2 venceu a batalha!");
+            System.out.println("\n" + nomeJogador2 + " venceu a batalha!");
         }
     }
+
 
     private void executarAcao(String jogador, Criatura atacante,
                               List<Criatura> timeAtacante, List<Criatura> timeDefensor) {
 
+
         System.out.println("\n--- " + jogador + " ---");
-        System.out.println(atacante.getNome() + " está pronto para agir!");
+        System.out.println(atacante.getNome() + " (Velocidade: " + atacante.getVelocidade() + ") está pronto para agir!");
+
+
 
 
         for (int i = 0; i < atacante.getHabilidades().size(); i++) {
@@ -63,14 +87,23 @@ public class BatalhaService {
         int escolhaHab = scanner.nextInt();
 
 
+
+
         List<Criatura> possiveisAlvos;
-        if (atacante.getHabilidades().get(escolhaHab).getNome().toLowerCase().contains("cura")
-                || atacante.getHabilidades().get(escolhaHab).getDescricao().toLowerCase().contains("cura")) {
+        String nomeHab = atacante.getHabilidades().get(escolhaHab).getNome().toLowerCase();
+        String descHab = atacante.getHabilidades().get(escolhaHab).getDescricao().toLowerCase();
+
+
+        if (nomeHab.contains("cura") || descHab.contains("cura")) {
+
 
             possiveisAlvos = timeAtacante;
         } else {
             possiveisAlvos = timeDefensor;
         }
+
+
+
 
         System.out.println("Escolha o alvo:");
         for (int i = 0; i < possiveisAlvos.size(); i++) {
@@ -82,13 +115,18 @@ public class BatalhaService {
         int escolhaAlvo = scanner.nextInt();
 
 
+
+
         atacante.usarHabilidade(escolhaHab, possiveisAlvos.get(escolhaAlvo));
+
+
 
 
         if (!possiveisAlvos.get(escolhaAlvo).estaViva()) {
             System.out.println(possiveisAlvos.get(escolhaAlvo).getNome() + " foi derrotado!");
         }
     }
+
 
     private boolean timeVivo(List<Criatura> time) {
         return time.stream().anyMatch(Criatura::estaViva);
