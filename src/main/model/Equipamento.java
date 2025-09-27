@@ -1,3 +1,4 @@
+package main.model;
 public class Equipamento extends Item {
     private int bonusVida;
     private int bonusAtaque;
@@ -32,6 +33,6 @@ public class Equipamento extends Item {
     @Override
     public void usar(Criatura alvo) {
         System.out.println(alvo.getNome() + " equipou " + nome + "!");
-        // Aqui você pode adicionar lógica para aumentar os atributos da criatura
+
     }
 }

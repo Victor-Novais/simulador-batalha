@@ -1,3 +1,4 @@
+package main.model;
 public class TipoElemental {
     public static final String FOGO = "Fogo";
     public static final String AGUA = "Água";

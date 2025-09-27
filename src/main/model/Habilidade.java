@@ -1,4 +1,6 @@
+package main.model;
 public interface Habilidade {
+
 	
 	String getNome();
 	String getDescricao();

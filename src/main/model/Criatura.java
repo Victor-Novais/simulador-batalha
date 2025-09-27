@@ -1,3 +1,5 @@
+package main.model;
+import java.util.List;
 public abstract class Criatura {
 	protected String nome;
 	protected int vida;
@@ -6,8 +8,8 @@ public abstract class Criatura {
 	protected int velocidade;
 	protected String elemento;
 	protected int efeitoStatus;
-
-	 public Criatura(String nome, int vida, int ataque, int defesa, int velocidade, String elemento) {
+    protected List<HabilidadeAtiva> habilidades;
+    public Criatura(String nome, int vida, int ataque, int defesa, int velocidade, String elemento, List<HabilidadeAtiva> habilidades) {
         this.nome = nome;
         this.vida = vida;
         this.ataque = ataque;
@@ -15,6 +17,7 @@ public abstract class Criatura {
         this.velocidade = velocidade;
         this.elemento = elemento;
         this.efeitoStatus = -1;
+        this.habilidades = habilidades;
     }
 
 	public String getNome() {
@@ -68,5 +71,31 @@ public abstract class Criatura {
         System.out.println(nome + " foi curado de todos os efeitos.");
     }
 
-	public abstract void habilidadeEspecial();
+    public List<HabilidadeAtiva> getHabilidades() {
+        return habilidades;
+    }
+
+    public void usarHabilidade(int index, Criatura alvo) {
+        if(index >= 0 && index < habilidades.size()) {
+            habilidades.get(index).executar(this, alvo);
+        } else {
+            System.out.println("Habilidade inválida!");
+        }
+    }
+
+    public void receberDano(int dano) {
+        this.vida -= dano;
+        if (this.vida < 0) {
+            this.vida = 0;
+        }
+    }
+
+    public boolean estaViva() {
+        return this.vida > 0;
+    }
+
+    public abstract void habilidadeEspecial();
 }
+
+
+

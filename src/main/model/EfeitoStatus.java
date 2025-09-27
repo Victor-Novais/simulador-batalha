@@ -1,3 +1,4 @@
+package main.model;
 public class EfeitoStatus {
     public static final int QUEIMAR = 0;
     public static final int ENVENENAR = 1;

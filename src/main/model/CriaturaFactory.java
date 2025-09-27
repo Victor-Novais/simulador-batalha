@@ -1,4 +1,6 @@
+package main.model;
 public interface CriaturaFactory {
+
 	int TUBARAO = 0;
     int GOLFINHO = 1;
     int DRAGAO_DE_KOMODO = 2;

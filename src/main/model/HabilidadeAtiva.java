@@ -1,3 +1,4 @@
+package main.model;
 public class HabilidadeAtiva implements Habilidade {
 	private String nome;
 	private String descricao;

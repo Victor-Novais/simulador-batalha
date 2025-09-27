@@ -1,3 +1,4 @@
+package main.model;
 public abstract class Item {
     protected String nome;
     protected String descricao;
