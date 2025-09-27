@@ -23,12 +23,12 @@ public class Main {
         escolherTime(sc, j1);
         escolherTime(sc, j2);
 
-        // Início da batalha
+      
         System.out.println("\n=== Começando a batalha entre " + j1.getNome() + " e " + j2.getNome() + " ===");
 
         batalhaService.batalhar(j1.getTime(), j2.getTime());
 
-        // Resultado final
+    
         if (j1.aindaTemCriaturas()) {
             System.out.println("\n" + j1.getNome() + " venceu a batalha!");
         } else {
