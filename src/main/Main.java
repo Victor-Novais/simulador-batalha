@@ -15,8 +15,10 @@ public class Main {
         System.out.println("=== Simulador de Batalha ===");
         System.out.print("Digite o nome do Jogador 1: ");
         Jogador j1 = new Jogador(sc.nextLine());
+
         System.out.print("Digite o nome do Jogador 2: ");
         Jogador j2 = new Jogador(sc.nextLine());
+
         System.out.println("\nEscolha suas criaturas (máx. 3 cada)");
         escolherTime(sc, j1);
         escolherTime(sc, j2);
