@@ -128,7 +128,7 @@ public class BatalhaService {
     }
 
 
-    private boolean timeVivo(List<Criatura> time) {
+    protected boolean timeVivo(List<Criatura> time) {
         return time.stream().anyMatch(Criatura::estaViva);
     }
 }
